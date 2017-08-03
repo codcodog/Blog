@@ -179,7 +179,8 @@ def login():
 - 蓝图(blueprints)
 
 > Flask 用 *蓝图* 的概念来在一个应用中或跨应用制作应用组件和支持通用的模式.  
-> 一个Blueprint对象与Flask应用对象的工作方式很像, 但它确实不是一个应用, 而是一个描述如何构建或扩建应用的*蓝图*.
+> 一个Blueprint对象与Flask应用对象的工作方式很像, 但它确实不是一个应用, 而是一个描述如何构建或扩建应用的*蓝图*.  
+> 在`蓝图`中定义的路由处于休眠状态, 直到`蓝图`注册到程序上后, 路由才真正成为程序的一部分.  
 
 ```
 from flask import Blueprint, render_template, abort
