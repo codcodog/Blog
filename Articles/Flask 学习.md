@@ -7,7 +7,7 @@ Flask 学习
     + [项目的目录结构是如何定义的](#项目的目录结构是如何定义的)
     + [是否具备入口文件](#是否具备入口文件)
 - [定义路由](#定义路由)
-    + [如何定义一个URL](#如何定义一个URL)
+    + [如何定义一个URL](#如何定义一个url)
 - [Request & Response](#request--response)
     + 获取Request参数(GET, POST)
     + 如何定义Url拦截函数, 即在执行这个Url有前后操作(before_url, after_url).
@@ -113,11 +113,11 @@ def index():
 规则: `<converter:variable_name>`
 
 ```
-@app.route('/user/&ltusername>')
+@app.route('/user/<username>')
 def show_user_profile(username):
     return 'User %s' % username
 
-@app.route('/post/&ltint:post_id>')
+@app.route('/post/<int:post_id>')
 def show_post(post_id):
     return 'Post %d' % post_id
 ```
