@@ -7,8 +7,7 @@ Flask 学习
     + [项目的目录结构是如何定义的](#项目的目录结构是如何定义的)
     + [是否具备入口文件](#是否具备入口文件)
 - [定义路由](#定义路由)
-    + 如何定义一个URL
-    + 从一个URL映射到(某类)某函数(方法)的整个过程是如何实现的
+    + [如何定义一个URL](#如何定义一个URL)
 - [Request & Response](#request--response)
     + 获取Request参数(GET, POST)
     + 如何定义Url拦截函数, 即在执行这个Url有前后操作(before_url, after_url).
@@ -98,6 +97,30 @@ Flask 学习
 
 定义路由
 --------
+> 处理URL和函数之间关系的程序称为路由.
+
+### 如何定义一个URL
+- 利用`route()`装饰器, 把装饰的函数注册为路由.
+
+```
+@app.route('/')
+def index():
+    return 'Index Page'
+```
+
+- 动态路由
+
+规则: `<converter:variable_name>`
+
+```
+@app.route('/user/&ltusername>')
+def show_user_profile(username):
+    return 'User %s' % username
+
+@app.route('/post/&ltint:post_id>')
+def show_post(post_id):
+    return 'Post %d' % post_id
+```
 
 Request & Response
 ------------------
