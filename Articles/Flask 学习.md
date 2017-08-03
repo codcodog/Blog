@@ -9,7 +9,7 @@ Flask 学习
 - [定义路由](#定义路由)
     + 如何定义一个URL
     + 从一个URL映射到(某类)某函数(方法)的整个过程是如何实现的
-- [Request & Response](#Request--Response)
+- [Request & Response](#request--response)
     + 获取Request参数(GET, POST)
     + 如何定义Url拦截函数, 即在执行这个Url有前后操作(before_url, after_url).
     + 表单验证(数据过滤)
