@@ -175,6 +175,44 @@ def login():
         show_the_login_form()
 ```
 
+- 蓝图(blueprints)
+
+> Flask 用 *蓝图* 的概念来在一个应用中或跨应用制作应用组件和支持通用的模式.  
+> 一个Blueprint对象与Flask应用对象的工作方式很像, 但它确实不是一个应用, 而是一个描述如何构建或扩建应用的*蓝图*.
+
+```
+from flask import Blueprint, render_template, abort
+from jinja2 import TemplateNotFound
+
+simple_page = Blueprint('simple_page', __name__,
+                        template_folder='templates')
+
+@simple_page.route('/', defaults={'page': 'index'})
+@simple_page.route('/<page>')
+def show(page):
+    try:
+        return render_template('pages/%s.html' % page)
+    except TemplateNotFound:
+        abort(404)
+```
+
+注册蓝图: 
+```
+from flask import Flask
+from yourapplication.simple_page import simple_page
+
+app = Flask(__name__)
+app.register_blueprint(simple_page)
+```
+
+详细了解:  
+
+[用蓝图实现模块化的应用](http://docs.jinkan.org/docs/flask/blueprints.html)  
+[sopython.com](https://github.com/sopython/sopython-site)  
+
+(PS: 查看`sopython.com`项目源码, 可以了解到大型项目中如何使用`蓝图`构建应用)
+
+
 Request & Response
 ------------------
 
