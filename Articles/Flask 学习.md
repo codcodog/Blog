@@ -29,7 +29,7 @@ Flask 学习
     + 如何直接使用sql语句访问数据库(而不用orm)
     + 如何定义/组织/初始化 数据表
     + 掌握orm常用操作, 例如: add/delete/字段查询/counts/order by等
-- [非框架必备技能(Helpers)](#非框架必备技能(Helpers))
+- [非框架必备技能(Helpers)](#非框架必备技能helpers)
     + 文件上传
     + Log日志
     + 发送Email
