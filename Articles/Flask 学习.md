@@ -122,6 +122,59 @@ def show_post(post_id):
     return 'Post %d' % post_id
 ```
 
+转换器:  
+> int: 接受整数  
+> float: 同int, 但是接受浮点数  
+> path: 和默认的相似, 但也接受斜线  
+
+- 唯一URL / 重定向行为
+
+> Flask的URL 规则基于Werkzeug的路由模块. 这个模块背后的思想是基于Apache以及更早的HTTP服务器主张的先例,保证优雅且唯一的URl.
+
+```
+@app.route('/project/')
+def project():
+    return 'The project page'
+
+@app.route('/about')
+def about():
+    return 'The about page'
+```
+
+虽然它们看起来相似, 但注意它们结尾斜线的使用在URL定义中不同. 
+
+第一种情况, 指向project的规范URL尾端有一个斜线. 这种感觉很像在文件系统中的文件夹.  
+访问一个结尾不带斜线的URL会被Flask重定向到带斜线的规范URL中去.
+
+然而, 第二种情况的URL结尾不带斜线, 类似 UNIX-like 系统下的文件的路径名. 访问结尾带斜线的URL, 会
+产生一个404 "Not Found" 的错误.
+
+这个行为使得在遗忘尾斜线时, 允许关联的URL接任工作, 与Apache和其他服务器的行为并无二异. 此外, 也保证了
+URL的唯一, 有助于避免搜索引擎引同一个页面两次.
+
+- 构造URL
+
+> 使用 `url_for()` 来给指定的函数构造URL.
+
+```
+>>> with app.test_request_context():
+...  print url_for('index')
+...  print url_for('profile', username='John Doe')
+...
+/
+/user/John%20Doe
+```
+- HTTP 方法
+
+```
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        do_the_login()
+    else:
+        show_the_login_form()
+```
+
 Request & Response
 ------------------
 
