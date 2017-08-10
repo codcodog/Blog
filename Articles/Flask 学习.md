@@ -392,8 +392,30 @@ def internal_server_error(e):
 模板系统
 --------
 
+> 模板渲染使用 `render_template()`函数  
+> 并且, Flask配备了 `Jinja2` 模板引擎.
+
+详细参考: [Jinja2](http://jinja.pocoo.org/)
+
+```
+from flask import render_template
+
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
+```
+
 数据库操作
 ----------
 
+> Flask `ORM` 操作: `SQLAlchemy`
+
+详细参考: [SQLAlchemy](https://www.sqlalchemy.org/)
+
 非框架必备技能(Helpers)
 -----------------------
+
+> Flask 扩展用多种不同的方式扩充 Flask 的功能.
+
+寻找扩展: [Flask Extension Registry](http://flask.pocoo.org/extensions/)
