@@ -338,9 +338,9 @@ request.headers.get('your-header-name')
 ```
 @app.route("/")
 def home():
-resp = flask.Response("Foo bar baz")
-resp.headers['Access-Control-Allow-Origin'] = '*'
-return resp
+    resp = flask.Response("Foo bar baz")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 ```
 (PS: 可以参考 [flask.Response](http://flask.pocoo.org/docs/0.12/api/#response-objects), [flask.make_response()](http://flask.pocoo.org/docs/0.12/api/#response-objects))
 
