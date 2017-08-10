@@ -9,14 +9,14 @@ Flask 学习
 - [定义路由](#定义路由)
     + [如何定义一个URL](#如何定义一个url)
 - [Request & Response](#request--response)
-    + 获取Request参数(GET, POST)
-    + 如何定义Url拦截函数, 即在执行这个Url有前后操作(before_url, after_url).
-    + 表单验证(数据过滤)
-    + 获取/修改/存储Cookie和Session
-    + 请求获取第三方API数据, 即通过Http Get/Post 获取远程数据
-    + 修改/输出 Http Header数据
-    + 解释/输出 Json数据
-    + 如何处理状态码: 404 和 50X
+    + [获取Request参数(GET, POST)](#获取请求参数)
+    + [定义Url拦截函数(请求钩子)](#定义url拦截函数)
+    + [表单验证(数据过滤)](#表单验证)
+    + [获取/修改/存储Cookie和Session](#如何修改cookie和session)
+    + [请求获取第三方API数据, 即通过Http Get/Post 获取远程数据](#请求获取第三方api数据)
+    + [修改/输出 Http Header数据](#http-header数据)
+    + [解释/输出 Json数据](#json数据)
+    + [如何处理状态码: 404 和 50X](#处理错误页)
 - [模板系统](#模板系统)
     + 如何组织/访问模板文件的目录结构
     + 如何在模板中嵌入代码
@@ -217,6 +217,177 @@ app.register_blueprint(simple_page)
 
 Request & Response
 ------------------
+
+> Flask的请求对象`request`  
+
+详细了解官方API: [request](http://flask.pocoo.org/docs/0.12/api/#incoming-request-data)
+
+#### 获取请求参数
+
+- 获取GET请求数据
+    ```
+    request.args.get('key')
+    ```
+
+- 获取表单数据(POST请求)
+    ```
+    request.form.get('key', tyep=str, default=None)
+    ```
+
+- 获取所有参数(GET & POST)
+    ```
+    request.values.get('key')
+    ```
+
+- 文件上传
+    ```
+    request.files['the_file']
+    ```
+
+- 流(stream)
+    ```
+    request.stream()
+    request.data()
+    ```
+
+#### 定义Url拦截函数
+
+##### 请求钩子使用装饰器实现
+
+- before_first_request
+> 注册一个函数, 在处理第一个请求之前运行.
+
+- before_request
+> 注册一个函数, 在每次请求之前运行
+
+- after_request
+> 注册一个函数, 如果没有未处理的异常抛出, 在每次请求之后运行.
+
+- teardown_request
+> 注册一个函数, 即使有未处理的异常抛出, 也在每次请求之后运行.
+
+#### 表单验证
+
+> 使用 `WTForms` 进行表单验证.(Flask-WTF 扩展)
+
+具体使用, 不再赘述. 详情查看: [WTForms](http://wtforms.readthedocs.io/en/latest/)
+
+另外, 可以参考: [使用 WTForms 进行表单验证](ihttp://docs.jinkan.org/docs/flask/patterns/wtforms.html)
+
+#### 如何修改cookie和session
+
+> 通过cookies属性来访问Cookies, 用响应对象的`set_cookie`方法来设置cookie.
+
+- 读取Cookie
+    ```
+    from flask import request
+
+    @app.route('/')
+    def index():
+        username = request.cookies.get('username')
+    ```
+
+- 存储Cookie
+    ```
+    from flask import make_response
+
+    @app.route('/')
+    def index():
+        resp = make_response(render_template(...))
+        resp.set_cookie('username', 'the username')
+        return resp
+    ```
+
+- 会话(Session)
+
+> 如果你设置了 Flask.secret_key ，你可以在 Flask 应用中使用会话(设置app.secret_key).  
+> 会话对象很像通常的字典，区别是会话对象会追踪修改。  
+> flask.session 对象.
+
+```
+@app.route('/')
+def index():
+    if 'username' in session:
+        return 'Logged in as %s' % escape(session['username'])
+    return 'You are not logged in'
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+```
+
+#### 请求获取第三方api数据
+
+使用`requests`库, 进行第三方数据的请求.  
+详细参考: [requests](http://docs.python-requests.org/en/master/)
+
+#### Http header数据
+
+> 使用`Flask.request.header` 和 `Flask.response.header` 对http headers进行获取, 修改. 
+
+- 获取 Header
+```
+from flask import request
+
+request.headers.get('your-header-name')
+```
+
+- 修改, 输出 Header
+```
+@app.route("/")
+def home():
+resp = flask.Response("Foo bar baz")
+resp.headers['Access-Control-Allow-Origin'] = '*'
+return resp
+```
+(PS: 可以参考 [flask.Response](http://flask.pocoo.org/docs/0.12/api/#response-objects), [flask.make_response()](http://flask.pocoo.org/docs/0.12/api/#response-objects))
+
+#### json数据
+
+> 使用 `json.dumps()`, `json.loads()` 进行json数据处理
+
+- 输出json数据
+```
+@app.route('/json', methods=['POST'])
+def my_json():
+    rt = {'info':'hello '+request.json['name']}
+    return Response(json.dumps(rt),  mimetype='application/json')
+```
+
+#### 处理错误页
+
+- 重定向
+```
+@app.route('/')
+def index():
+    return redirect(url_for('login'))
+```
+
+- 放弃请求并返回错误代码，用 `abort()` 函数
+```
+@app.route('/login')
+def login():
+    abort(401)
+    this_is_never_executed()
+```
+
+- 处理错误页
+```
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('errors/403.html'), 403
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('errors/404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('errors/500.html'), 500
+
+```
 
 模板系统
 --------
