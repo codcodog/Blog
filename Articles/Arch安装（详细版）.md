@@ -210,7 +210,7 @@ grub引导系统
 ```
 下面， 进入软件安装环节.
 
-### 系统软件配置
+### 系统软件安装和配置
 
 Bash自动补全
 ```
@@ -287,6 +287,12 @@ $ yaourt -S ranger
 $ yaourt -S thunar
 ```
 
+安装U盘识别
+```
+$ yaourt -S ntfs-3g
+$ yaourt -S gvfs-mtp
+```
+
 #### 配置启动文件
 
 ```
@@ -306,7 +312,7 @@ if [ -f $HOME/.Xmodmap ]; then
     /usr/bin/xmodmap $HOME/.Xmodmap
 fi
 
-# screen
+# screen, 多屏幕扩展脚本， 可以使用 xrandr 或 arandr
 bash screen 2>/dev/null
 
 exec awesome
@@ -327,13 +333,6 @@ $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 参考：[Vundle](https://github.com/VundleVim/Vundle.vim)
 
-下载自己的配置文件
-```
-$ git clone https://github.com/codcodog/Dotfiles.git
-$ cp Dotfiles/.vim .
-```
-打开`Vim`, 输入`:PluginInstall`即可.
-
 安装`ctrlp`插件
 ```
 $ cd ~/.vim
@@ -341,7 +340,14 @@ $ git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim
 ```
 参考：[Ctrlp](http://kien.github.io/ctrlp.vim/#installation)
 
-另外，`Vim` 中的 `markdown` 实时查看的那个插件还需要安装`nodejs`
+加载自己的配置文件
+```
+$ git clone https://github.com/codcodog/Dotfiles.git
+$ cp Dotfiles/.vim .
+```
+打开`Vim`, 输入`:PluginInstall`即可.
+
+另外，`Vim` 中的 `suan/vim-instant-markdown`插件, 实时查看`markdown`还需要安装`nodejs`
 ```
 $ yaourt -S nodejs
 $ yaourt -S npm
@@ -349,5 +355,25 @@ $ sudo npm -g install instant-markdown-d
 ```
 详细参考：[vim安装markdown插件](http://www.jianshu.com/p/24aefcd4ca93)
 
-#### 安装SwitchyOmega插件
+#### 配置`Vim`支持系统粘贴版
+
+查看vim是否支持clipboard功能
+```
+$ vim --version | grep clipboard 
+```
+> `+clipboard`表示支持， `-clipboard`则不支持.  
+
+详细了解：[Vim](https://wiki.archlinux.org/index.php/vim#Installation)
+
+安装支持`clipboard`版本的vim
+```
+$ yaourt -S gvim
+```
+关于配置的话， 可以参考：[Accessing the system clipboard](http://vim.wikia.com/wiki/Accessing_the_system_clipboard)
+
+#### 配置上网
+安装SwitchyOmega插件  
 参考：[SwitchyOmega](https://switchyomega.com/)
+
+配置代理  
+参考：[GFWList](https://github.com/FelisCatus/SwitchyOmega/wiki/GFWList)
