@@ -210,6 +210,8 @@ export PATH="$PATH:/usr/local/php/bin:/usr/local/php/sbin"
 ```
 $ source .bashrc
 $ php --version
+PHP 7.1.12 (cli) (built: Dec  9 2017 15:36:35) ( NTS )
+Copyright (c) 1997-2017 The PHP Group
 Zend Engine v3.1.0, Copyright (c) 1998-2017 Zend Technologies
 ```
 
@@ -263,7 +265,7 @@ log_level = error
 user = php-fpm
 group = php-fpm
 
-# 当 php 和 nginx 同一个服务器的时候，设置为 nginx 的 socket 文件
+# 当 php 和 nginx 同一个服务器的时候，设置为 socket 文件
 ;listen = 127.0.0.1:9000 
 listen = /usr/local/php/var/run/php-fpm.sock
 
