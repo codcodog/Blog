@@ -26,6 +26,17 @@ Google了下， 发现是 `Python` `输出缓冲` 的原因.
 > 也就是说， 在程序中尽管 `print` 输出好几行，但是如果还没有占满缓存区的话，只有等待缓存区满或者程序结束之后才会一次性输出.
 
 避免输出缓存的话，可以每次在 `sys.stdout.write()` 和 `print()` 之后调用 `sys.stdout.flush()` 强制刷新缓冲区输出.  
+```Python
+import sys
+
+print('Hello World')
+sys.stdout.flush()
+
+# 或者
+sys.stdout.write('Hello World')
+sys.stdout.flush()
+```
+
 对于 `print()`，还可以
 ```
 >>> print('Hello World.', flush=True)
