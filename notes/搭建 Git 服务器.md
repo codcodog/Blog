@@ -32,7 +32,7 @@ $ chmod a+x post-receive
 ```Bash
 $ useradd -g git -s /usr/local/git/bin/git-shell -m blog
 ```
-> 注意：要为用户创建家目录，否则客户端提交到服务器仓库的时候，会报 `Could not chdir to home directory /home/test: No such file or directory` 错误
+> 注意：要为用户创建家目录，否则客户端提交到服务器仓库的时候，会报 `Could not chdir to home directory /home/blog: No such file or directory` 错误
 
 设置帐号密码，在客户端推送内容的时候用到.
 ```
