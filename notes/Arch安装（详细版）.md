@@ -333,12 +333,24 @@ $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 参考：[Vundle](https://github.com/VundleVim/Vundle.vim)
 
-安装`ctrlp`插件
+~~安装`ctrlp`插件~~
 ```
 $ cd ~/.vim
 $ git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim
 ```
 参考：[Ctrlp](http://kien.github.io/ctrlp.vim/#installation)
+
+安装 `fzf`
+```
+$ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+$ ~/.fzf/install
+```
+参考：[fzf](https://github.com/junegunn/fzf)
+
+安装 `ag`
+```
+$ yaourt -S the_silver_searcher
+```
 
 加载自己的配置文件
 ```
