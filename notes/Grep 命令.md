@@ -1,5 +1,5 @@
-Grep 命令
-==========
+Grep 命令的15个实用例子
+=======================
 
 首先创建一个示例文件 `demo_file`，方便后面 `grep` 命令演示使用.
 ```
@@ -12,7 +12,7 @@ Two lines above this line is empty.
 And this is the last line.
 ```
 
-#### 在单个文件中搜索给定的字符串
+#### 1. 在单个文件中搜索给定的字符串
 ```
 Syntax:
 grep "literal_string" filename
@@ -26,7 +26,7 @@ Two lines above this line is empty.
 And this is the last line.
 ```
 
-#### 在多个文件中查找给定的字符串
+#### 2. 在多个文件中查找给定的字符串
 ```
 Syntax:
 grep "string" FILE_PATTERN
@@ -46,7 +46,7 @@ demo_file1:Two lines above this line is empty.
 demo_file1:And this is the last line.
 ```
 
-#### 不区分大小写的搜索使用 grep -i
+#### 3. 不区分大小写的搜索
 ```
 Syntax:
 grep -i "string" FILE
@@ -61,7 +61,7 @@ This Line Has All Its First Character Of The Word With Upper Case.
 And this is the last line.
 ```
 
-#### 在文件中匹配正则表达式
+#### 4. 在文件中匹配正则表达式
 ```
 Syntax:
 grep "REGEX" filename
@@ -82,7 +82,7 @@ Two lines above this line is empty.
 - `{,m}` 最多匹配m次
 - `{n,m}` 最少匹配n次，最多匹配m次
 
-#### 查找单词
+#### 5. 查找单词
 如果你想查找一个单词，而不是一个子字符串，使用 `-w` 选项.
 
 下面的例子是一个普通的 `grep` 查找 `is` 字符.   
@@ -107,7 +107,7 @@ Two lines above this line is empty.
 And this is the last line.
 ```
 
-#### 显示匹配 之前/之后/周围 的行使用 grep -A, -B, -C
+#### 6. 显示匹配 之前/之后/周围 的行
 在大文件中查找的时候，在匹配后查看一些行可能会很有用.  
 如果 `grep` 能够查看匹配 之后/之前/周围 的行，你会感到非常方便.
 
@@ -178,7 +178,7 @@ Example to show the difference between WORD and word
 * 192.168.1.1 - single WORD
 ```
 
-#### 高亮搜索使用 GREP_OPTIONS
+#### 7. 高亮搜索
 `grep` 会根据提供的 模式/字符 打印出匹配的行，但如果想高亮显示，则需要设置 `GREP_OPTIONS` 环境变量.
 
 ```
@@ -190,7 +190,7 @@ Two lines above <b>this</b> line is empty.
 And <b>this</b> is the last line.
 ```
 
-#### 递归搜索所有文件使用 grep -r
+#### 8. 递归搜索所有文件
 当你想搜索当前目录及其子目录下的所有文件的时候，`-r` 选项就是你需要使用的.
 
 在当前目录及其子目录的所有文件中搜索字符 `ramesh`
@@ -198,7 +198,7 @@ And <b>this</b> is the last line.
 $ grep -r "ramesh" *
 ```
 
-#### 反转匹配使用 grep -v
+#### 9. 反转匹配
 当你想显示那些没有匹配给出的 字符/模式 的行时，`-v` 选项就是你需要的.
 
 显示所有没有匹配 `go` 的行
@@ -217,7 +217,7 @@ Example to show the difference between WORD and word
 * 192.168.1.1 - seven words.
 ```
 
-#### 显示不符合所有给定模式的行
+#### 10. 显示不符合所有给定模式的行
 ```
 Syntax:
 grep -v -e "pattern" -e "pattern"
@@ -234,7 +234,7 @@ $ grep -v -e "a" -e "b" -e "c" test-file.txt
 d
 ```
 
-#### 显示匹配的数量使用 grep -c
+#### 11. 显示匹配的数量
 当想知道有多少行匹配给出的 字符/模式 的时候，使用 `-c` 选项.
 ```
 Syntax:
@@ -253,7 +253,7 @@ $ grep -v -c this demo_file
 4
 ```
 
-#### 仅显示匹配模式的文件名使用 grep -l
+#### 12. 仅显示匹配模式的文件名
 当你想 `grep` 只输出给定模式匹配的文件名的时候，使用 `-l` 选项.
 
 ```
@@ -262,7 +262,7 @@ demo_file
 demo_file1
 ```
 
-#### 仅显示匹配的字符串
+#### 13. 仅显示匹配的字符串
 `grep` 默认输出给定 字符/模式 匹配的行，如果你只想输出匹配模式的字符串，则使用 `-o` 选项.
 
 当你直接提供字符串的时候，它可能没那么有用.  
@@ -274,7 +274,7 @@ is line
 is is the last line
 ```
 
-#### 在行中显示匹配的位置
+#### 14. 在行中显示匹配的位置
 当你想 `grep` 显示它与文件中的模式相匹配的位置时，使用以下选项.
 ```
 Syntax:
@@ -292,7 +292,7 @@ $ grep -o -b "3" temp-file.txt
 ```
 > 注意：上面 `grep` 命令的输出不是行中的位置，它是整个文件的字节偏移量.
 
-#### 输出时显示行号使用 grep -n
+#### 15. 输出时显示行号
 用匹配的行显示文件的行号
 ```
 $ grep -n "go" demo_text
@@ -303,3 +303,6 @@ $ grep -n "go" demo_text
 9: * w - go to the next word.
 10: * W - go to the next WORD.
 ```
+
+*此文为转载文章*  
+原文：[15 Practical Grep Command Examples In Linux / UNIX](https://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/)
