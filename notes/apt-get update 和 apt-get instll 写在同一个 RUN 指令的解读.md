@@ -1,8 +1,8 @@
-apt-get update 和 apt-get instll 写在同一个 RUN 指令的解读
+apt-get update 和 apt-get install 写在同一个 RUN 指令的解读
 ===========================================================
 
 ### 场景
-看到很多 `Dockerfile` 都是把 `apt-get update` 和 `apt-get instll` 写在同一个 `RUN` 指令中的
+看到很多 `Dockerfile` 都是把 `apt-get update` 和 `apt-get install` 写在同一个 `RUN` 指令中的
 ```
 RUN apt-get update && apt-get install -y \
         package-bar \
