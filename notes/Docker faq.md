@@ -1,4 +1,4 @@
-Dcoker FAQ
+Docker FAQ
 ===========
 
 1. Dockerfile 中 `COPY` 指令和 `ADD` 指令有什么区别  
