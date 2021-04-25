@@ -16,6 +16,8 @@ zip 包解压乱码
 ### 解决
 
 通过标识位识别 `gbk` 编码，若是则转换为 `utf-8`
+> 如果未设置通用位11，则文件名和注释使用原始的ZIP字符编码  
+> 如果设置了通用位11，则文件名和注释必须使用UTF-8存储规范定义的字符编码形式支持Unicode标准版本4.1.0或更高版本
 
 ```golang
 func (tc *TaskController) unzip(fileName string, dst string) (map[string][]string, int, error) {
