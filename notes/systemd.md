@@ -51,7 +51,7 @@ TimeoutSec=5
 [Install]
 WantedBy=multi-user.target
 ```
-修改完之后，在服务不退出的情况下，使用 `daemon-reload` 重新加载下 `systemd` 服务文件配置.
+修改完之后，使用 `daemon-reload` 重新加载下 `systemd` 服务文件配置，则则5秒超时时间才会生效.
 > `/etc/systemd/systemd/` 目录下文件发生变更之后，都应该 `daemon-reload` 一下
 
 #### 开机启动
